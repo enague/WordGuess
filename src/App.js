@@ -9,11 +9,13 @@ class App extends Component {
     super(props);
     this.state = {
         words: [],
-        word: null
+        word: null,
+        guess: []
     }
     this.getWords = this.getWords.bind(this)
     this.getRandomNumber = this.getRandomNumber.bind(this)
     this.chooseWord = this.chooseWord.bind(this)
+    this.setGuess = this.setGuess.bind(this)
 }
 
 componentDidMount() {
@@ -46,7 +48,15 @@ chooseWord(dictionary) {
   this.setState({
       word: word
   })
+  this.setGuess(word)
 }
+
+setGuess(word) {
+  let guess = word.split('')
+  this.setState({
+    guess: guess
+  })
+ }
 
 guessLetter(letter) {
 
@@ -57,7 +67,7 @@ guessLetter(letter) {
         <header className="App-header">
           <h1 className="App-title">Welcome to WordGuess!</h1>
         </header>
-        {this.state.word ? <Display word={this.state.word}/> : null}
+        {this.state.word ? <Display word={this.state.word} guess={this.state.guess}/> : null}
         <Board words={this.state.words} chooseWord={this.chooseWord}/>
       </div>
     );
