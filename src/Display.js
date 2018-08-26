@@ -6,7 +6,7 @@ class Display extends Component {
     return (
       <div style={{display: 'flex', justifyContent: 'center'}}>
           {this.props.guess.map((letter,i) => 
-            <Letter letter={letter} key={i}/>
+            <Letter letter={letter} key={i} submittedLetters={this.props.submittedLetters}/>
           )}
       </div>
     );

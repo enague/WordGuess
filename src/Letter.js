@@ -11,7 +11,7 @@ class Letter extends Component {
   render() {
     return (
       <div style={{padding: '20px'}}>
-          <p>{this.state.value ? this.props.letter : '?'}</p>
+          <p>{this.props.submittedLetters.includes(this.props.letter) ? this.props.letter : '?'}</p>
       </div>
     );
   }

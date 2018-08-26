@@ -10,12 +10,14 @@ class App extends Component {
     this.state = {
         words: [],
         word: null,
-        guess: []
+        guess: [],
+        submittedLetters: []
     }
     this.getWords = this.getWords.bind(this)
     this.getRandomNumber = this.getRandomNumber.bind(this)
     this.chooseWord = this.chooseWord.bind(this)
     this.setGuess = this.setGuess.bind(this)
+    this.handleSubmitLetter = this.handleSubmitLetter.bind(this)
 }
 
 componentDidMount() {
@@ -49,6 +51,9 @@ chooseWord(dictionary) {
       word: word
   })
   this.setGuess(word)
+  this.setState({
+    submittedLetters: []
+  })
 }
 
 setGuess(word) {
@@ -58,17 +63,22 @@ setGuess(word) {
   })
  }
 
-guessLetter(letter) {
-
+handleSubmitLetter(letter) {
+  let arr = this.state.submittedLetters
+  arr.push(letter)
+  this.setState({
+    submittedLetters: arr
+  })
 }
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
           <h1 className="App-title">Welcome to WordGuess!</h1>
         </header>
-        {this.state.word ? <Display word={this.state.word} guess={this.state.guess}/> : null}
-        <Board words={this.state.words} chooseWord={this.chooseWord}/>
+        {this.state.word ? <Display word={this.state.word} guess={this.state.guess} submittedLetters={this.state.submittedLetters}/>: null}
+        <Board words={this.state.words} chooseWord={this.chooseWord} handleSubmitLetter={this.handleSubmitLetter}/>
       </div>
     );
   }
