@@ -11,13 +11,18 @@ class App extends Component {
         words: [],
         word: null,
         guess: [],
-        submittedLetters: []
+        incorrect: [],
+        submittedLetters: [],
+        count: 0,
+        check: [],
     }
     this.getWords = this.getWords.bind(this)
     this.getRandomNumber = this.getRandomNumber.bind(this)
     this.chooseWord = this.chooseWord.bind(this)
     this.setGuess = this.setGuess.bind(this)
     this.handleSubmitLetter = this.handleSubmitLetter.bind(this)
+    this.checkGuess = this.checkGuess.bind(this)
+    this.checkWin = this.checkWin.bind(this)
 }
 
 componentDidMount() {
@@ -52,14 +57,19 @@ chooseWord(dictionary) {
   })
   this.setGuess(word)
   this.setState({
-    submittedLetters: []
+    submittedLetters: [],
+    incorrect: [],
+    count: 0
   })
 }
 
 setGuess(word) {
   let guess = word.split('')
+  let check = new Array(guess.length)
+  check.fill(false)
   this.setState({
-    guess: guess
+    guess: guess,
+    check: check
   })
  }
 
@@ -69,6 +79,33 @@ handleSubmitLetter(letter) {
   this.setState({
     submittedLetters: arr
   })
+
+  let incorrect = this.state.incorrect
+  if(!this.state.guess.includes(letter)) {
+    incorrect.push(letter)
+    this.setState({
+      incorrect: incorrect
+    })
+  }
+  this.state.count++
+  this.checkGuess(this.state.guess, this.state.check, letter)
+  this.checkWin(this.state.check, this.state.count)
+}
+
+checkGuess(guess, check, letter){
+  for(let i = 0; i < check.length; i++){
+    if(guess[i] === letter) {
+      check[i] = true
+    }
+  }
+}
+
+checkWin(check, count) {
+  if(check.every(x => x === true) && count <= 5) {
+    console.log('player 2 wins!')
+  } else if(!check.every(x => x === true) && count > 5) {
+    console.log('computer wins!')
+  }
 }
 
   render() {
@@ -77,7 +114,7 @@ handleSubmitLetter(letter) {
         <header className="App-header">
           <h1 className="App-title">Welcome to WordGuess!</h1>
         </header>
-        {this.state.word ? <Display word={this.state.word} guess={this.state.guess} submittedLetters={this.state.submittedLetters}/>: null}
+        {this.state.word ? <Display word={this.state.word} guess={this.state.guess} count={this.state.count} submittedLetters={this.state.submittedLetters} incorrect={this.state.incorrect}/>: null}
         <Board words={this.state.words} chooseWord={this.chooseWord} handleSubmitLetter={this.handleSubmitLetter}/>
       </div>
     );
