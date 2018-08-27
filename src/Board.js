@@ -17,30 +17,43 @@ class Board extends Component {
  constructor(props){
      super(props);
      this.state = {
-         letter: null
+         letter: null,
+         word: null,
      }
-     this.handleChange = this.handleChange.bind(this)
+     this.handleLetter = this.handleLetter.bind(this)
+     this.handleWord = this.handleWord.bind(this)
  }
 
- handleChange(event) {
+ handleLetter(event) {
      this.setState({
          letter: event.target.value
      })
  }
+
+ handleWord(event) {
+    this.setState({
+        word: event.target.value
+    })
+}
+
   render() {
     return (
-      <div style={{paddingBottom: '300px'}}>
+      <div style={{padding: '50px'}}>
         <div className='row'>
             <div className='col-sm'>
-                <input type='text' maxLength='1' placeholder='Enter a letter here...'style={{border: '2px solid black', borderRadius: '4px', height: '30px'}}onChange={this.handleChange}></input>
-                <Button className="btn btn-dark"onClick={() =>{this.props.handleSubmitLetter(this.state.letter)}}>Submit</Button> <br />
-                <input type='text' placeholder='Enter word guess here...'style={{border: '2px solid black', borderRadius: '4px', height: '30px'}}onChange={this.handleChange}></input>
-                <Button className="btn btn-dark">Submit</Button> <br />
+                <input type='text' maxLength='1' placeholder='Enter a letter here...'style={{border: '2px solid black', borderRadius: '4px', height: '30px'}} onChange={this.handleLetter}></input>
+                <Button className="btn btn-dark" onClick={() =>{this.props.handleSubmitLetter(this.state.letter)}}>Submit</Button> <br />
+                <input type='text' placeholder='Enter word guess here...'style={{border: '2px solid black', borderRadius: '4px', height: '30px'}} onChange={this.handleWord}></input>
+                <Button className="btn btn-dark" onClick={() =>{this.props.handleSubmitWord(this.state.word)}}>Submit</Button> <br />
             </div>
             <div className='col-sm-3'>
                 <Options className="btn btn-dark" onClick={() => {this.props.needHint(this.props.word)}}>Need a Hint?</Options>
                 <Options className="btn btn-dark" onClick={() => {this.props.chooseWord(this.props.words)}}>Choose Another Word</Options>
-                <Options className="btn btn-dark">Change Difficulty</Options>
+                <div style={{display: 'flex'}}>
+                    Current Difficulty: {this.props.difficulty}
+                    <button className="btn btn-success" onClick={() => {this.props.raise(this.props.difficulty)}}>&#8679;</button>
+                    <button className="btn btn-danger" onClick={() => {this.props.lower(this.props.difficulty)}}>&#x21E9;</button>
+                </div>
             </div>
         </div>
       </div>

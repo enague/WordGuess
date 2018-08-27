@@ -12,7 +12,7 @@ class Display extends Component {
               <Letter letter={letter} key={i} submittedLetters={this.props.submittedLetters}/>
             )}
           </div>
-          <p style={{color: 'red'}}>{this.props.hint ? this.props.hint :'Sorry, could not find a good hint for you' }</p>
+          <p style={{color: 'red'}}>{this.props.hint ? this.props.hint : null }</p>
           <div className="row" style={{paddingTop: '30px'}}> 
             <div className="col-sm">
               <h3>Submitted Letters</h3>

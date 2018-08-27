@@ -5,7 +5,8 @@ import Landing from './Landing.js';
 import HowToPlay from './HowToPlay';
 import Board from './Board.js';
 import Display from './Display.js';
-import { consolidateStreamedStyles } from 'styled-components';
+import Congrats from './Congrats.js';
+import Lost from './Lost.js'
 
 class App extends Component {
   constructor(props) {
@@ -19,6 +20,9 @@ class App extends Component {
         submittedLetters: [],
         count: 0,
         check: [],
+        win: false,
+        lose: false,
+        difficulty: 5,
     }
     this.getWords = this.getWords.bind(this)
     this.getRandomNumber = this.getRandomNumber.bind(this)
@@ -28,14 +32,22 @@ class App extends Component {
     this.checkGuess = this.checkGuess.bind(this)
     this.checkWin = this.checkWin.bind(this)
     this.needHint = this.needHint.bind(this)
+    this.handleSubmitWord =this.handleSubmitWord.bind(this)
+    this.lowerDifficulty = this.lowerDifficulty.bind(this)
+    this.raiseDifficulty = this.raiseDifficulty.bind(this)
+
 }
 
 componentDidMount() {
-  this.getWords();
+  this.getWords(this.state.difficulty);
 }
 
-getWords() {
-  axios.get('/words') 
+getWords(difficulty) {
+  axios.get('/words', {
+    params: {
+      difficulty: difficulty
+    }
+  }) 
   .then(res => {
       let dictionary = res.data
       this.setState({
@@ -61,7 +73,8 @@ chooseWord(dictionary) {
   this.setState({
     submittedLetters: [],
     incorrect: [],
-    count: 0
+    count: 0,
+    hint: null
   })
 }
 
@@ -97,6 +110,30 @@ handleSubmitLetter(letter) {
   this.checkWin(this.state.check, this.state.count)
 }
 
+handleSubmitWord(word) {
+  let guess = this.state.guess.join('')
+  console.log(guess, word)
+
+  if(guess === word) {
+    console.log('players 2 wins!')
+    this.setState({
+      win: true,
+      lose: false
+    })
+  } else {
+    console.log('Not the right word!Sorry try again!')
+    this.setState({
+      lose: true,
+      win: false
+    })
+  }
+
+  let increase = this.state.count + 1;
+  this.setState({
+    count: increase
+  })
+}
+
 checkGuess(guess, check, letter){
   for(let i = 0; i < check.length; i++){
     if(guess[i] === letter) {
@@ -130,14 +167,37 @@ needHint(word) {
  })
 }
 
+lowerDifficulty(difficulty){
+  let lower = difficulty - 1
+  if(lower < 1) {
+    lower = 1
+  }
+  this.setState({
+    difficulty: lower
+  })
+  this.getWords(this.state.difficulty)
+}
+
+raiseDifficulty(difficulty){
+  let raise = difficulty + 1
+  if(raise > 10) {
+    raise = 10
+  }
+  this.setState({
+    difficulty: raise
+  })
+  this.getWords(this.state.difficulty)
+}
   render() {
     return (
       <div className="App">
         <Landing />
         <HowToPlay />
+        {this.state.win ? <Congrats /> : null}
+        {this.state.lose ? <Lost /> : null}
         <div className="container">
           {this.state.word ? <Display word={this.state.word} hint={this.state.hint} guess={this.state.guess} count={this.state.count} submittedLetters={this.state.submittedLetters} incorrect={this.state.incorrect}/>: 'Fishing for some words...'}
-          <Board word={this.state.word} words={this.state.words} chooseWord={this.chooseWord} needHint={this.needHint} handleSubmitLetter={this.handleSubmitLetter}/>
+          <Board difficulty={this.state.difficulty} raise={this.raiseDifficulty} lower={this.lowerDifficulty} word={this.state.word} words={this.state.words} chooseWord={this.chooseWord} needHint={this.needHint} handleSubmitLetter={this.handleSubmitLetter} handleSubmitWord={this.handleSubmitWord}/>
         </div>
       </div>
     );
