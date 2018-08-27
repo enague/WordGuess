@@ -39,11 +39,6 @@ class Landing extends Component {
                         },
                         "polygon": {
                           "nb_sides": 5
-                        },
-                        "image": {
-                          "src": "img/github.svg",
-                          "width": 100,
-                          "height": 100
                         }
                       },
                       "opacity": {
@@ -130,7 +125,6 @@ class Landing extends Component {
                     "retina_detect": true
                     }}
             style={{
-                width: '100%',
                 background: `#101f6c` }}
         />
       </div>

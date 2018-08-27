@@ -89,7 +89,10 @@ handleSubmitLetter(letter) {
       incorrect: incorrect
     })
   }
-  this.state.count++
+  let increase = this.state.count + 1;
+  this.setState({
+    count: increase
+  })
   this.checkGuess(this.state.guess, this.state.check, letter)
   this.checkWin(this.state.check, this.state.count)
 }
