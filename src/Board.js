@@ -1,4 +1,12 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
+
+const Button = styled.button.attrs({
+    className: 'btn btn-dark'
+})`
+    height: 30px;
+    padding: 5px;
+`
 
 class Board extends Component {
  constructor(props){
@@ -16,11 +24,11 @@ class Board extends Component {
  }
   render() {
     return (
-      <div>
-        <h1>Guess a Letter Here!</h1>
+      <div style={{paddingBottom: '300px'}}>
+        <h2 style={{padding: '10px'}}>Guess a Letter Here!</h2>
         <input type='text' value={this.state.value} onChange={this.handleChange}></input>
-        <button onClick={() =>{this.props.handleSubmitLetter(this.state.letter)}}>Submit</button>
-        <button onClick={() => {this.props.chooseWord(this.props.words)}}>Choose Another Word</button>
+        <Button className="btn btn-dark"onClick={() =>{this.props.handleSubmitLetter(this.state.letter)}}>Submit</Button>
+        <Button className="btn btn-dark"onClick={() => {this.props.chooseWord(this.props.words)}}>Choose Another Word</Button>
       </div>
     );
   }

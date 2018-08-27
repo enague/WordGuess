@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
+import Landing from './Landing.js';
+import HowToPlay from './HowToPlay';
 import Board from './Board.js';
-import Display from './Display.js'
+import Display from './Display.js';
 
 class App extends Component {
   constructor(props) {
@@ -111,11 +113,12 @@ checkWin(check, count) {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Welcome to WordGuess!</h1>
-        </header>
-        {this.state.word ? <Display word={this.state.word} guess={this.state.guess} count={this.state.count} submittedLetters={this.state.submittedLetters} incorrect={this.state.incorrect}/>: null}
-        <Board words={this.state.words} chooseWord={this.chooseWord} handleSubmitLetter={this.handleSubmitLetter}/>
+        <Landing />
+        <HowToPlay />
+        <div className="container">
+          {this.state.word ? <Display word={this.state.word} guess={this.state.guess} count={this.state.count} submittedLetters={this.state.submittedLetters} incorrect={this.state.incorrect}/>: 'Fishing for some words...'}
+          <Board words={this.state.words} chooseWord={this.chooseWord} handleSubmitLetter={this.handleSubmitLetter}/>
+        </div>
       </div>
     );
   }
