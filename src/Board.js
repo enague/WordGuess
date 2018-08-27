@@ -38,7 +38,7 @@ class Board extends Component {
                 <Button className="btn btn-dark">Submit</Button> <br />
             </div>
             <div className='col-sm-3'>
-                <Options className="btn btn-dark">Need a Hint?</Options>
+                <Options className="btn btn-dark" onClick={() => {this.props.needHint(this.props.word)}}>Need a Hint?</Options>
                 <Options className="btn btn-dark" onClick={() => {this.props.chooseWord(this.props.words)}}>Choose Another Word</Options>
                 <Options className="btn btn-dark">Change Difficulty</Options>
             </div>

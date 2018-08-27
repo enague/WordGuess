@@ -5,6 +5,7 @@ import Landing from './Landing.js';
 import HowToPlay from './HowToPlay';
 import Board from './Board.js';
 import Display from './Display.js';
+import { consolidateStreamedStyles } from 'styled-components';
 
 class App extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class App extends Component {
         words: [],
         word: null,
         guess: [],
+        hint: null,
         incorrect: [],
         submittedLetters: [],
         count: 0,
@@ -25,22 +27,20 @@ class App extends Component {
     this.handleSubmitLetter = this.handleSubmitLetter.bind(this)
     this.checkGuess = this.checkGuess.bind(this)
     this.checkWin = this.checkWin.bind(this)
+    this.needHint = this.needHint.bind(this)
 }
 
 componentDidMount() {
-  this.getWords()
+  this.getWords();
 }
 
 getWords() {
-  axios({
-     method: 'get',
-     url: 'http://app.linkedin-reach.io/words',
-  })   
-  .then((response) => {
-      let dictionary = response.data.split('\n')
+  axios.get('/words') 
+  .then(res => {
+      let dictionary = res.data
       this.setState({
-          words: dictionary
-      })
+        words: dictionary
+       })
       this.chooseWord(dictionary)
   })
   .catch((err) => {
@@ -113,14 +113,31 @@ checkWin(check, count) {
   }
 }
 
+needHint(word) {
+  axios.get('/hint', {
+    params: {
+      word: word
+    }
+  })
+  .then((response) => {
+     let hint = response.data[0].lexicalEntries[0].entries[0].senses[0].definitions[0]
+     this.setState({
+       hint: hint
+     })
+ })
+ .catch((err) => {
+     console.log(err)
+ })
+}
+
   render() {
     return (
       <div className="App">
         <Landing />
         <HowToPlay />
         <div className="container">
-          {this.state.word ? <Display word={this.state.word} guess={this.state.guess} count={this.state.count} submittedLetters={this.state.submittedLetters} incorrect={this.state.incorrect}/>: 'Fishing for some words...'}
-          <Board words={this.state.words} chooseWord={this.chooseWord} handleSubmitLetter={this.handleSubmitLetter}/>
+          {this.state.word ? <Display word={this.state.word} hint={this.state.hint} guess={this.state.guess} count={this.state.count} submittedLetters={this.state.submittedLetters} incorrect={this.state.incorrect}/>: 'Fishing for some words...'}
+          <Board word={this.state.word} words={this.state.words} chooseWord={this.chooseWord} needHint={this.needHint} handleSubmitLetter={this.handleSubmitLetter}/>
         </div>
       </div>
     );
