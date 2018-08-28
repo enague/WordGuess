@@ -11,18 +11,11 @@ const Block = styled.div`
     float: center;
 `
 
-class Letter extends Component {
- constructor(props){
-     super(props);
-     this.state = {
-         value: false,
-     }
- }
- 
+class Letter extends Component { 
   render() {
     return (
       <div style={{padding: '5px'}}>
-          <p>{this.props.submittedLetters.includes(this.props.letter) ? <Block>{this.props.letter.toUpperCase()}</Block> : '__'}</p>
+          <p>{this.props.submittedLetters.includes(this.props.letter) || this.props.reveal ? <Block>{this.props.letter.toUpperCase()}</Block> : '__'}</p>
       </div>
     );
   }

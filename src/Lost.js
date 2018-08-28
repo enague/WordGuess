@@ -4,8 +4,8 @@ class Lost extends Component {
  
   render() {
     return (
-        <div class="alert alert-danger" role="alert">
-        Sorry you lost! Try again =)
+        <div className="alert alert-danger" role="alert" style={{height: '100px', fontSize: '40px'}}>
+        Sorry you lost! Try again 😱
       </div>
     );
   }

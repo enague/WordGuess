@@ -8,7 +8,7 @@ const Segment = styled.div`
 class HowToPlay extends Component {
   render() {
     return (
-      <div style={{background: '#E3E5E4', minHeight: '400px', width: '100%', color: 'black'}}>
+      <div style={{background: '#E3E5E4', minHeight: '400px', width: '100%', color: 'black', padding: '30px'}}>
         <div className='row'>
             <div className='col-sm' style={{display: 'flex', flexDirection: 'column'}}>
                 <h2>How To Play</h2>

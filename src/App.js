@@ -23,6 +23,7 @@ class App extends Component {
         win: false,
         lose: false,
         difficulty: 5,
+        reveal: false,
     }
     this.getWords = this.getWords.bind(this)
     this.getRandomNumber = this.getRandomNumber.bind(this)
@@ -65,17 +66,21 @@ getRandomNumber(max) {
 }
 
 chooseWord(dictionary) {
+  this.setState({
+    submittedLetters: [],
+    incorrect: [],
+    count: 0,
+    hint: null,
+    reveal: false,
+    win: false,
+    lose: false
+  })
+
   let word = dictionary[this.getRandomNumber(dictionary.length - 1)]
   this.setState({
       word: word
   })
   this.setGuess(word)
-  this.setState({
-    submittedLetters: [],
-    incorrect: [],
-    count: 0,
-    hint: null
-  })
 }
 
 setGuess(word) {
@@ -101,37 +106,54 @@ handleSubmitLetter(letter) {
     this.setState({
       incorrect: incorrect
     })
+
+    let increase = this.state.count + 1;
+    if(increase > 6) {
+      increase = 0
+    }
+    this.setState({
+      count: increase
+    })
   }
-  let increase = this.state.count + 1;
-  this.setState({
-    count: increase
-  })
+
+  if(this.state.win || this.state.lose) {
+    this.chooseWord(this.state.words)
+  }
+
   this.checkGuess(this.state.guess, this.state.check, letter)
   this.checkWin(this.state.check, this.state.count)
 }
 
 handleSubmitWord(word) {
   let guess = this.state.guess.join('')
-  console.log(guess, word)
 
   if(guess === word) {
     console.log('players 2 wins!')
     this.setState({
       win: true,
-      lose: false
+      lose: false,
+      reveal: true
     })
-  } else {
+  } else if(guess){
     console.log('Not the right word!Sorry try again!')
+    let decrease = this.state.count - 1;
     this.setState({
-      lose: true,
-      win: false
+      count: decrease
     })
+    this.checkWin(this.state.check, this.state.count)
   }
 
   let increase = this.state.count + 1;
+  if(increase > 6) {
+    increase = 0
+  }
   this.setState({
     count: increase
   })
+
+  if(this.state.win || this.state.lose) {
+    this.chooseWord(this.state.words)
+  }
 }
 
 checkGuess(guess, check, letter){
@@ -143,10 +165,20 @@ checkGuess(guess, check, letter){
 }
 
 checkWin(check, count) {
-  if(check.every(x => x === true) && count <= 5) {
+  if(check.every(x => x === true) && count <= 4) {
     console.log('player 2 wins!')
-  } else if(!check.every(x => x === true) && count > 5) {
+    this.setState({
+      win: true,
+      lose: false,
+      reveal: true
+    })
+  } else if(!check.every(x => x === true) && count > 4) {
     console.log('computer wins!')
+    this.setState({
+      lose: true,
+      win: false,
+      reveal: true
+    })
   }
 }
 
@@ -196,7 +228,7 @@ raiseDifficulty(difficulty){
         {this.state.win ? <Congrats /> : null}
         {this.state.lose ? <Lost /> : null}
         <div className="container">
-          {this.state.word ? <Display word={this.state.word} hint={this.state.hint} guess={this.state.guess} count={this.state.count} submittedLetters={this.state.submittedLetters} incorrect={this.state.incorrect}/>: 'Fishing for some words...'}
+          {this.state.word ? <Display reveal={this.state.reveal} word={this.state.word} hint={this.state.hint} guess={this.state.guess} count={this.state.count} submittedLetters={this.state.submittedLetters} incorrect={this.state.incorrect}/>: 'Fishing for some words...'}
           <Board difficulty={this.state.difficulty} raise={this.raiseDifficulty} lower={this.lowerDifficulty} word={this.state.word} words={this.state.words} chooseWord={this.chooseWord} needHint={this.needHint} handleSubmitLetter={this.handleSubmitLetter} handleSubmitWord={this.handleSubmitWord}/>
         </div>
       </div>
