@@ -1,7 +1,20 @@
 import React, { Component } from 'react';
 import Letter from './Letter.js';
+import styled from 'styled-components';
 
+const Headers = styled.h4`
+  @media(max-width: 700px) {
+      font-size: 20px
+  }
+`
+const Elements = styled.p`
+  color: #e88d0d;
+  fontSize: 30px
 
+  @media(max-width: 700px) {
+    font-size: 20px
+  }
+`
 
 class Display extends Component {
   constructor(props){
@@ -41,16 +54,16 @@ class Display extends Component {
           <p style={{color: 'red'}}>{this.props.hint ? this.props.hint : null }</p>
           <div className="row" style={{paddingTop: '30px'}}> 
             <div className="col-sm">
-              <h4>Submitted Letters</h4>
-              <p style={{color: '#e88d0d', fontSize: '30px'}}>{this.props.submittedLetters}</p>
+              <Headers>Submitted Letters</Headers>
+              <Elements>{this.props.submittedLetters}</Elements>
             </div>
             <div className="col-sm">
-              <h4>Incorrect Letters</h4>
-              <p style={{color: '#e88d0d', fontSize: '30px'}}>{this.props.incorrect}</p>
+              <Headers>Incorrect Letters</Headers>
+              <Elements>{this.props.incorrect}</Elements>
             </div>
             <div className="col-sm">
-              <h4>Guesses Remaining</h4>
-              <p style={{color: '#e88d0d', fontSize: '30px'}}>{6 - this.props.count }<span style={{padding: '5px'}} >{this.showEmoji(6 - this.props.count)}</span></p>
+              <Headers>Guesses Remaining</Headers>
+              <Elements>{6 - this.props.count }<span style={{padding: '5px'}} >{this.showEmoji(6 - this.props.count)}</span></Elements>
             </div>
           </div>
       </div>

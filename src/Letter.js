@@ -11,24 +11,19 @@ const Block = styled.div`
     float: center;
 
     @media(max-width: 700px) {
-        font-size: 30px;
-        
+        color: #e88d0d;
+        font-size: 15px;
+        background: none;
+        height: auto;
+        width: auto;
     }
   
-    @media (max-width:300px) {
-        font-size: 5px;
-        height: 55px;
-        width: 50px;
-        background: white;
-        color: #e88d0d;
-        border-radius: 12px;
-    }
 `
 
 class Letter extends Component { 
   render() {
     return (
-      <div style={{padding: '5px'}}>
+      <div style={{padding: '2px'}}>
           <p>{this.props.submittedLetters.includes(this.props.letter) || this.props.reveal ? <Block>{this.props.letter.toUpperCase()}</Block> : '__'}</p>
       </div>
     );

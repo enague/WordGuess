@@ -12,12 +12,18 @@ import styled from 'styled-components';
 
 
 const Intro = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    padding: 50px;
-    color: black;
-    background: white;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 50px;
+  color: black;
+  background: white;
+`
+
+const Welcome = styled.h1`
+  @media(max-width: 700px) {
+    font-size: 30px
+  }
 `
 
 class App extends Component {
@@ -105,7 +111,7 @@ setGuess(word) {
   })
  }
 
-handleSubmitLetter(letter) {
+handleSubmitLetter(letter, callback) {
   let arr = this.state.submittedLetters
   arr.push(letter)
   this.setState({
@@ -134,9 +140,10 @@ handleSubmitLetter(letter) {
 
   this.checkGuess(this.state.guess, this.state.check, letter)
   this.checkWin(this.state.check, this.state.count)
+  callback()
 }
 
-handleSubmitWord(word) {
+handleSubmitWord(word, callback) {
   let guess = this.state.guess.join('')
 
   if(guess === word) {
@@ -166,6 +173,8 @@ handleSubmitWord(word) {
   if(this.state.win || this.state.lose) {
     this.chooseWord(this.state.words)
   }
+
+  callback()
 }
 
 checkGuess(guess, check, letter){
@@ -207,7 +216,10 @@ needHint(word) {
      })
  })
  .catch((err) => {
-     console.log(err)
+    let sorry = "Sorry, there was a problem getting a hint for that word"
+    this.setState({
+      hint: sorry
+    })
  })
 }
 
@@ -236,7 +248,7 @@ raiseDifficulty(difficulty){
     return (
       <div className="App">
           <Intro>
-              <h2>Welcome to WordGuess!</h2>
+              <Welcome>Welcome to WordGuess!</Welcome>
           </Intro>
         <Landing />
         <HowToPlay />

@@ -18,9 +18,8 @@ class Congrats extends Component {
  
   render() {
     return (
-        // eslint-disable-next-line
         <Congratsstyles className="alert alert-success" role="alert">
-            Congrats you won! ✨
+            Congrats you won! <span role="img" aria-label="star">✨</span>
         </Congratsstyles>
     );
   }

@@ -30,9 +30,9 @@ class HowToPlay extends Component {
                 <h2>Rules To Keep In Mind</h2>
                 <Segment>
                     <div style={{display: 'flex', flexDirection: 'column'}}>
-                      <div>&#9995; You can ask for a hint that will give you the definition of the unknown word</div>
-                      <div>&#9995;  All submitted letters and incorrect guesses will be on display, so try to avoid entering the same letter</div>
-                      <div>&#9995;  Difficulty ranges from 1-10. Default difficulty is 5. You can change level of difficulty if you want</div>
+                      <div><span role="img" aria-label="hand">&#9995;</span> You can ask for a hint that will give you the definition of the unknown word</div>
+                      <div><span role="img" aria-label="hand">&#9995;</span>  All submitted letters and incorrect guesses will be on display, so try to avoid entering the same letter</div>
+                      <div><span role="img" aria-label="hand">&#9995;</span>  Difficulty ranges from 1-10. Default difficulty is 5. You can change level of difficulty if you want</div>
                     </div>
                     <h2>
                       Have fun and try your best!

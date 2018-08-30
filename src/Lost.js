@@ -18,9 +18,8 @@ class Lost extends Component {
  
   render() {
     return (
-        // eslint-disable-next-line
         <Loststyles className="alert alert-danger" role="alert">
-            Sorry you lost! Try again 😱
+            Sorry you lost! Try again <span role="img" aria-label="sad">😱</span>
         </Loststyles>
     );
   }
