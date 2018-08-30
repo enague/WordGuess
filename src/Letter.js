@@ -9,6 +9,20 @@ const Block = styled.div`
     font-size: 40px;
     border-radius: 12px;
     float: center;
+
+    @media(max-width: 700px) {
+        font-size: 30px;
+        
+    }
+  
+    @media (max-width:300px) {
+        font-size: 5px;
+        height: 55px;
+        width: 50px;
+        background: white;
+        color: #e88d0d;
+        border-radius: 12px;
+    }
 `
 
 class Letter extends Component { 

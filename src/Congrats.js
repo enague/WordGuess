@@ -1,12 +1,27 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
+
+const Congratsstyles = styled.div`
+    height: 100px;
+    font-size: 40px;
+
+    @media(max-width: 700px) {
+        font-size: 30px;
+    }
+  
+    @media (max-width:300px) {
+        font-size: 5px;
+    }
+`
 
 class Congrats extends Component {
  
   render() {
     return (
-        <div className="alert alert-success" role="alert" style={{height: '100px', fontSize: '40px'}}>
-         ✨ Congrats you won! ✨
-      </div>
+        // eslint-disable-next-line
+        <Congratsstyles className="alert alert-success" role="alert">
+            Congrats you won! ✨
+        </Congratsstyles>
     );
   }
 }

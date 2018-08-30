@@ -1,23 +1,11 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import Particles from 'react-particles-js'
 
-const Intro = styled.div`
-    display: flex;
-    flex-direction: column;
-    min-height: 200px;
-    width: 100%;
-    padding: 50px;
-    color: black;
-`
 
 class Landing extends Component {
   render() {
     return (
       <div>
-          <Intro>
-              <h2>Welcome to WordGuess!</h2>
-          </Intro>
           <Particles 
                 params={{
                     "particles": {
@@ -125,7 +113,7 @@ class Landing extends Component {
                     "retina_detect": true
                     }}
             style={{
-                background: `#101f6c` }}
+                background: `#101f6c`}}
         />
       </div>
     );

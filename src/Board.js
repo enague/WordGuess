@@ -49,8 +49,8 @@ class Board extends Component {
             <div className='col-sm-3'>
                 <Options className="btn btn-dark" onClick={() => {this.props.needHint(this.props.word)}}>Need a Hint?</Options>
                 <Options className="btn btn-dark" onClick={() => {this.props.chooseWord(this.props.words)}}>Choose Another Word</Options>
-                <div style={{width: '200px'}}><b>Current Difficulty: {this.props.difficulty}</b></div>
-                <div style={{display: 'flex', width: '200px'}}>
+                <div style={{width: '200px', margin: '5px', padding: '5px'}}><b>Current Difficulty: {this.props.difficulty}</b></div>
+                <div style={{display: 'flex', justifyContent:'center', marginLeft: '10px', padding: '5px', width: '200px'}}>
                     <button className="btn btn-success" style={{width: '50%'}} onClick={() => {this.props.raise(this.props.difficulty)}}>&#8679;</button>
                     <button className="btn btn-danger" style={{width: '50%'}} onClick={() => {this.props.lower(this.props.difficulty)}}>&#x21E9;</button>
                 </div>

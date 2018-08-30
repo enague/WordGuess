@@ -14,11 +14,12 @@ class HowToPlay extends Component {
                 <h2>How To Play</h2>
                 <Segment>
                   <i className="fas fa-gamepad fa-2x"></i> <br />
-                    <ul>
-                      <li>The goal is to guess the word</li>
-                      <li>You have <b>6</b> chances</li>
-                      <li>You can either guess a <b>letter</b> or a word if you figured it out, but each guess will count against the guesses remaining</li>
-                    </ul>
+                    <div style={{display: 'flex', flexDirection: 'column'}}>
+                      <div>&#10008;  The goal is to guess the word</div>
+                      <div>&#10008;  You have <b>6</b> chances</div>
+                      <div>&#10008;  You can either guess a <b>letter</b> or a <b>word</b> if you figured it out</div>
+                      <div>&#10008;  If you guess a letter or word and it is incorrect, your guesses will decrease by 1</div>
+                    </div>
                 </Segment>
                 <Segment>
                   <i className="fas fa-trophy fa-2x"></i>
@@ -28,11 +29,11 @@ class HowToPlay extends Component {
             <div className='col-sm'>
                 <h2>Rules To Keep In Mind</h2>
                 <Segment>
-                    <ul>
-                      <li>You can ask for a hint that will give you the definition of the unknown word</li>
-                      <li>All submitted letters and incorrect guesses will be on display, so try to avoid entering the same letter</li>
-                      <li>Difficulty ranges from 1-10. Default difficulty is 5. You can change level of difficulty if you want</li>
-                    </ul>
+                    <div style={{display: 'flex', flexDirection: 'column'}}>
+                      <div>&#9995; You can ask for a hint that will give you the definition of the unknown word</div>
+                      <div>&#9995;  All submitted letters and incorrect guesses will be on display, so try to avoid entering the same letter</div>
+                      <div>&#9995;  Difficulty ranges from 1-10. Default difficulty is 5. You can change level of difficulty if you want</div>
+                    </div>
                     <h2>
                       Have fun and try your best!
                     </h2>

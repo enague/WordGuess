@@ -1,12 +1,27 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
+
+const Loststyles = styled.div`
+    height: 100px;
+    font-size: 40px;
+
+    @media(max-width: 700px) {
+        font-size: 30px;
+    }
+  
+    @media (max-width:300px) {
+        font-size: 5px;
+    }
+`
 
 class Lost extends Component {
  
   render() {
     return (
-        <div className="alert alert-danger" role="alert" style={{height: '100px', fontSize: '40px'}}>
-        Sorry you lost! Try again 😱
-      </div>
+        // eslint-disable-next-line
+        <Loststyles className="alert alert-danger" role="alert">
+            Sorry you lost! Try again 😱
+        </Loststyles>
     );
   }
 }

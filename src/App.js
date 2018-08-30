@@ -7,6 +7,18 @@ import Board from './Board.js';
 import Display from './Display.js';
 import Congrats from './Congrats.js';
 import Lost from './Lost.js'
+import styled from 'styled-components';
+
+
+
+const Intro = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 50px;
+    color: black;
+    background: white;
+`
 
 class App extends Component {
   constructor(props) {
@@ -223,6 +235,9 @@ raiseDifficulty(difficulty){
   render() {
     return (
       <div className="App">
+          <Intro>
+              <h2>Welcome to WordGuess!</h2>
+          </Intro>
         <Landing />
         <HowToPlay />
         {this.state.win ? <Congrats /> : null}
@@ -231,6 +246,7 @@ raiseDifficulty(difficulty){
           {this.state.word ? <Display reveal={this.state.reveal} word={this.state.word} hint={this.state.hint} guess={this.state.guess} count={this.state.count} submittedLetters={this.state.submittedLetters} incorrect={this.state.incorrect}/>: 'Fishing for some words...'}
           <Board difficulty={this.state.difficulty} raise={this.raiseDifficulty} lower={this.lowerDifficulty} word={this.state.word} words={this.state.words} chooseWord={this.chooseWord} needHint={this.needHint} handleSubmitLetter={this.handleSubmitLetter} handleSubmitWord={this.handleSubmitWord}/>
         </div>
+        <div style={{padding: '5px', background: 'black', fontSize: '12px', fontStyle: 'italic'}}><i className="far fa-copyright"></i> 2018 By Eric Nague. Proudly created by yours truly</div>
       </div>
     );
   }
