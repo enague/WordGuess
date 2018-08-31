@@ -23,12 +23,7 @@ app.get('/words', function(req, res) {
 app.get('/hint', function(req, res) {
     axios({
         method:'get',
-        url: `https://od-api.oxforddictionaries.com/api/v1/entries/en/${req.query.word}`,
-        headers: {
-            "Accept": "application/json",
-            "app_id": "1979f7b3",
-            "app_key": "3d9597cf6645e10a85637234898a07d5"
-        },
+        url: `https://od-api.oxforddictionaries.com/api/v1/entries/en/${req.query.word}`
     })
     .then((response) => {
         return res.send(response.data.results)
