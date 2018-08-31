@@ -23,6 +23,10 @@
 
 ## Usage
 
+> Install dependencies from root directory
+
+    "npm install"
+
 > Run the following command in your terminal to start server for API requests
 
     "npm run server"
