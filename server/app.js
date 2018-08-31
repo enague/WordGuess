@@ -8,14 +8,8 @@ const app = express();
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(cors())
 
-const hintHeaders = {
-    "Accept": "application/json",
-    "app_id": "1979f7b3",
-    "app_key": "3d9597cf6645e10a85637234898a07d5"
-}
-
 app.get('/words', function(req, res) {
-    axios.get('http://app.linkedin-reach.io/words')
+    axios.get(`http://app.linkedin-reach.io/words?difficulty=${req.query.difficulty}`)
     .then((response) => {
         let dictionary = response.data.split('\n')
         return res.send(dictionary)
@@ -27,7 +21,6 @@ app.get('/words', function(req, res) {
 })
 
 app.get('/hint', function(req, res) {
-    console.log(req.query.word)
     axios({
         method:'get',
         url: `https://od-api.oxforddictionaries.com/api/v1/entries/en/${req.query.word}`,
