@@ -4,16 +4,17 @@
 
 >Game Rules
 
-- The goal is to guess the word
-- You have 6 chances
-- You can either guess a letter or a word if you figured it out
-- If you guess a letter or word and it is incorrect, your guesses will decrease by 1
+- The goal is to guess the word.
+- You have 6 chances.
+- You can either guess a letter or a word.
+- If you guess a letter or word and it is incorrect, your guesses will decrease by 1. If it is a correct letter in the unknown word, the guess will not reduce your guesses remaining.
 
 >How To Play
 
-- You can ask for a hint that will give you the definition of the unknown word
+- You can ask for a hint that will give you the definition of the unknown word. However, if the Oxford API has trouble getting a hint, it will let you know.
 - All submitted letters and incorrect guesses will be on display, so try to avoid entering the same letter
 - Difficulty ranges from 1-10. Default difficulty is 5. You can change level of difficulty if you want.
+- You can change the word after you win or lose a round to keep playing!
 
 ## Table of Contents
 
@@ -41,29 +42,29 @@ Tech Stack: React, Node/Express
 
 The App component is the overarching parent component. It manages most of the state and passes down state to other child components. It includes most of the functions like getWords() which gets words from the LinkedIn API based on a difficulty which is held in the state.
 
-I wanted to modularize my components on names that were intuitive. 
+I wanted to modularize my components on names that were intuitive. The following explain the reasoning behind each component and their name.
 
-- HowToPlay 
+>HowToPlay 
 
 Describes the gameplay and the rules.
 
-- Display
+>Display
 
 Shows the unknown word, the submitted letters, the incorrect letters, and the guesses remaining
 
--Letter
+>Letter
 
 A child of display. As I map through the unknown word, this handles logic if the letter is shown or not and contains specific stylings.
 
--Board
+>Board
 
 Describes the interactive portion that the user can play with. This component includes guessing a letter or word, need a hint button, change word button, and change difficulty buttons.
 
--Congrats/ Lost
+>Congrats/ Lost
 
 An alert banner to signal end of a game through loss or win
 
--Landing
+>Landing
 
 A fun component to include react-particlesjs in the background of the main game. It acts as a sort of call to action and draws attention of the user.
 
